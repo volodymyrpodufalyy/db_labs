@@ -1,0 +1,1 @@
+SELECT DATE_FORMAT(date, "%d.%m.%Y") FROM labor_sql.battles;

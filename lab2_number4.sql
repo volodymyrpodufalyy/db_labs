@@ -1,0 +1,1 @@
+SELECT ALL maker FROM labor_sql.product where type = 'PC' or 'Laptop';
