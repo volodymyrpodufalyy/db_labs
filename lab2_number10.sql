@@ -1,7 +1,7 @@
 SELECT
 Product.type,
 Product.model,
-avg(selection.price)
+avg(selection.price) as average_price
 FROM Product
 JOIN (SELECT model, price FROM PC
 UNION
