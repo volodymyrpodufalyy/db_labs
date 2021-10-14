@@ -1,0 +1,1 @@
+SELECT AVG(hd) FROM labor_sql.pc JOIN product ON (product.model = pc.model) GROUP BY maker and type = 'Printer'
