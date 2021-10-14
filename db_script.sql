@@ -1,38 +1,23 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema Podufalyy
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema Podufalyy
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Podufalyy` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `Podufalyy`;
 USE `Podufalyy` ;
 
-DROP TABLE IF EXISTS country;
-DROP TABLE IF EXISTS airline;
-DROP TABLE IF EXISTS city;
-DROP TABLE IF EXISTS airport;
-DROP TABLE IF EXISTS plane;
-DROP TABLE IF EXISTS flight;
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS crew;
-DROP TABLE IF EXISTS class;
 DROP TABLE IF EXISTS user_has_flight;
--- -----------------------------------------------------
--- Table `Podufalyy`.`country`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`country` (
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS class;
+DROP TABLE IF EXISTS flight;
+DROP TABLE IF EXISTS plane;
+DROP TABLE IF EXISTS airport;
+DROP TABLE IF EXISTS city;
+DROP TABLE IF EXISTS airline;
+DROP TABLE IF EXISTS country;
+
+
+CREATE TABLE country (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `covid_rules` VARCHAR(450) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id`));
 
 INSERT INTO country (id, name, covid_rules) VALUES
 (1, 'Ukraine', 'PLR test and app'),
@@ -47,11 +32,8 @@ INSERT INTO country (id, name, covid_rules) VALUES
 (10, 'Egypt', 'PLR test');
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`airline`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`airline` (
-  `id` INT NOT NULL,
+CREATE TABLE airline (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `country_id` INT NOT NULL,
   PRIMARY KEY (`id`, `country_id`),
@@ -60,8 +42,7 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`airline` (
     FOREIGN KEY (`country_id`)
     REFERENCES `Podufalyy`.`country` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 INSERT INTO airline (id, name, country_id) VALUES
 (1, 'Ukraine airlines', '1'),
@@ -76,11 +57,8 @@ INSERT INTO airline (id, name, country_id) VALUES
 (10, 'Egypt airlines', '10');
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`city`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`city` (
-  `id` INT NOT NULL,
+CREATE TABLE city (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `country_id` INT NOT NULL,
   PRIMARY KEY (`id`, `country_id`),
@@ -89,8 +67,7 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`city` (
     FOREIGN KEY (`country_id`)
     REFERENCES `Podufalyy`.`country` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 INSERT INTO city (id, name, country_id) VALUES
 (1, 'Kyiv', '1'),
@@ -105,11 +82,8 @@ INSERT INTO city (id, name, country_id) VALUES
 (10, 'Kair', '10');
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`airport`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`airport` (
-  `id` INT NOT NULL,
+CREATE TABLE airport (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `country_id` INT NOT NULL,
   `city_id` INT NOT NULL,
@@ -119,8 +93,7 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`airport` (
     FOREIGN KEY (`city_id`)
     REFERENCES `Podufalyy`.`city` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 INSERT INTO airport (id, name,country_id, city_id) VALUES
 (1, 'Boryspil airport', '1', '1'),
@@ -135,11 +108,8 @@ INSERT INTO airport (id, name,country_id, city_id) VALUES
 (10, 'Cairo International Airport', '10', '10');
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`plane`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`plane` (
-  `id` INT NOT NULL,
+CREATE TABLE plane (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `seats` VARCHAR(45) NOT NULL,
   `type` ENUM('standart', 'military', 'freight') NULL,
@@ -150,8 +120,7 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`plane` (
     FOREIGN KEY (`airline_id`)
     REFERENCES `Podufalyy`.`airline` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 INSERT INTO plane (id, name, seats, type, airline_id) VALUES
 (1, 'Boeing 777', '100', 'standart', '1'),
@@ -166,10 +135,7 @@ INSERT INTO plane (id, name, seats, type, airline_id) VALUES
 (10, 'EMBRAER-195', '100', 'military', '10');
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`flight`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`flight` (
+CREATE TABLE flight (
   `id` INT NOT NULL AUTO_INCREMENT,
   `departure_time` TIMESTAMP(2) NOT NULL,
   `arrival_time` TIMESTAMP(2) NULL,
@@ -205,15 +171,11 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`flight` (
     FOREIGN KEY (`plane_id`)
     REFERENCES `Podufalyy`.`plane` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`user` (
-  `id` INT NOT NULL,
+CREATE TABLE user (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NULL,
@@ -222,10 +184,7 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`user` (
   PRIMARY KEY (`id`));
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`crew`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`crew` (
+CREATE TABLE crew (
   `id` INT NOT NULL AUTO_INCREMENT,
   `main_pilot` VARCHAR(45) NOT NULL,
   `stewardess` VARCHAR(45) NOT NULL,
@@ -237,15 +196,11 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`crew` (
     FOREIGN KEY (`plane_id`)
     REFERENCES `Podufalyy`.`plane` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`class`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`class` (
-  `id` INT NOT NULL,
+CREATE TABLE class (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` ENUM('econom', 'premium', 'business') NOT NULL,
   `benefits` VARCHAR(350) NOT NULL,
   `price` FLOAT NOT NULL,
@@ -256,14 +211,10 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`class` (
     FOREIGN KEY (`flight_id`)
     REFERENCES `Podufalyy`.`flight` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
--- -----------------------------------------------------
--- Table `Podufalyy`.`user_has_flight`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Podufalyy`.`user_has_flight` (
+CREATE TABLE user_has_flight (
   `user_id` INT NOT NULL,
   `flight_id` INT NOT NULL,
   `flight_airport_id` INT NOT NULL,
@@ -284,8 +235,3 @@ CREATE TABLE IF NOT EXISTS `Podufalyy`.`user_has_flight` (
     REFERENCES `Podufalyy`.`flight` (`id` , `airport_id` , `airport_country_id` , `airport_id1` , `airport_country_id1` , `plane_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
