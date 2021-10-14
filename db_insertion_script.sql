@@ -82,6 +82,15 @@ INSERT INTO user (name, lastname, email, password, passport_id) VALUES
 ('Richard', 'Halley', 'richrich333@gmail.com', '75dxxpo3239', '0562648290'),
 ('Philip', 'Rearden', 'phil44@gmail.com', '234870923', '0452648270');
 
+
+INSERT INTO class (
+	type, 
+    benefits, 
+    price) VALUES
+('econom', 'none', '100'),
+('premium','Food, drinks', '200'),
+('business', 'Food, drinks, seats, comfort', '300');
+
 INSERT INTO flight (
 	departure_time, 
 	arrival_time,
@@ -124,3 +133,6 @@ INSERT INTO user_has_flight (
 ('8','8', '8', '8', '9', '9', '8'),
 ('9','9', '9', '9', '10', '10', '9'),
 ('10', '10', '10', '10', '1', '1', '10');
+
+
+

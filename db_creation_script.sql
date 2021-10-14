@@ -71,6 +71,12 @@ CREATE TABLE plane (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+CREATE TABLE class (
+  id INT NOT NULL AUTO_INCREMENT,
+  type ENUM('econom', 'premium', 'business') NOT NULL,
+  benefits VARCHAR(350) NOT NULL,
+  price FLOAT NOT NULL,
+  PRIMARY KEY (`id`));
 
 CREATE TABLE flight (
   id INT NOT NULL AUTO_INCREMENT,
@@ -134,22 +140,6 @@ CREATE TABLE crew (
     REFERENCES `Podufalyy`.`plane` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-
-CREATE TABLE class (
-  id INT NOT NULL AUTO_INCREMENT,
-  type ENUM('econom', 'premium', 'business') NOT NULL,
-  benefits VARCHAR(350) NOT NULL,
-  price FLOAT NOT NULL,
-  flight_id INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_class_flight1_idx` (`flight_id` ASC) VISIBLE,
-  CONSTRAINT `fk_class_flight1`
-    FOREIGN KEY (`flight_id`)
-    REFERENCES `Podufalyy`.`flight` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
 
 CREATE TABLE user_has_flight (
   user_id INT NOT NULL,
