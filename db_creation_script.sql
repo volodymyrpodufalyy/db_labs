@@ -115,7 +115,10 @@ CREATE TABLE flight (
     REFERENCES `Podufalyy`.`plane` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
+    
+ALTER TABLE flight ADD class_id INT NOT NULL;  
+    
+ALTER TABLE flight ADD CONSTRAINT fk_class_id FOREIGN KEY (class_id) REFERENCES class (id);
 
 CREATE TABLE user (
   id INT NOT NULL AUTO_INCREMENT,
