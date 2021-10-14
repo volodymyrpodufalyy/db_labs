@@ -19,19 +19,6 @@ CREATE TABLE country (
   covid_rules VARCHAR(450) NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO country (name, covid_rules) VALUES
-('Ukraine', 'PLR test and app'),
-('USA', 'Vaccination sertificate'),
-('Poland', 'PLR test and vaccination'),
-('UK', 'Vaccination sertificate'),
-('Spain', 'Vaccination sertificate'),
-('Italy', 'Vaccination sertificate and PLR test'),
-('Germany', 'Vaccination sertificate'),
-('Belgium', 'Vaccination sertificate'),
-('Canada', 'PLR test'),
-('Egypt', 'PLR test');
-
-
 CREATE TABLE airline (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL,
@@ -43,19 +30,6 @@ CREATE TABLE airline (
     REFERENCES `Podufalyy`.`country` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-INSERT INTO airline (name, country_id) VALUES
-('Ukraine airlines', '1'),
-('USA airlines', '2'),
-('Poland airlines', '3'),
-('UK airlines', '4'),
-('Spain airlines', '5'),
-('Italy airlines', '6'),
-('Germany airlines', '7'),
-('Belgium airlines', '8'),
-('Canada airlines', '9'),
-('Egypt airlines', '10');
-
 
 CREATE TABLE city (
   id INT NOT NULL AUTO_INCREMENT,
@@ -69,19 +43,6 @@ CREATE TABLE city (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-INSERT INTO city (name, country_id) VALUES
-('Kyiv', '1'),
-('New York', '2'),
-('Warsaw', '3'),
-('London', '4'),
-('Madrid', '5'),
-('Rome', '6'),
-('Berlin', '7'),
-('Brussels', '8'),
-('Toronto', '9'),
-('Kair', '10');
-
-
 CREATE TABLE airport (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(45) NULL,
@@ -94,18 +55,6 @@ CREATE TABLE airport (
     REFERENCES `Podufalyy`.`city` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-INSERT INTO airport (name, country_id, city_id) VALUES
-('Boryspil airport', '1', '1'),
-('John F. Kennedy International Airport', '2', '2'),
-('Warsaw Chopin Airport', '3', '3'),
-('Haethrow airport', '4', '4'),
-('Madrid-Barajas Adolfo Suárez Airport', '5', '5'),
-('AEROPORTI DI ROMA', '6', '6'),
-('Berlin-Tegel airport', '7', '7'),
-('Brussels Airport', '8', '8'),
-('Toronto Pearson International Airport', '9', '9'),
-('Cairo International Airport', '10', '10');
 
 
 CREATE TABLE plane (
@@ -121,18 +70,6 @@ CREATE TABLE plane (
     REFERENCES `Podufalyy`.`airline` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-INSERT INTO plane (name, seats, type, airline_id) VALUES
-('Boeing 777', '100', 'standart', '1'),
-('Boeing 772', '100', 'military', '2'),
-('Boeing 737', '100', 'freight', '3'),
-('Airbus A320', '100', 'military', '4'),
-('Airbus A330', '100', 'freight', '5'),
-('Boeing 787', '100', 'standart', '6'),
-('BOEING 767-300ER', '100', 'standart', '7'),
-('BOEING 737-800', '100', 'freight', '8'),
-('EMBRAER-190', '100', 'standart', '9'),
-('EMBRAER-195', '100', 'military', '10');
 
 
 CREATE TABLE flight (
