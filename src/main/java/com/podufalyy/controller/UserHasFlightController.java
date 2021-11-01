@@ -25,6 +25,11 @@ public class UserHasFlightController implements ControllerInterface<UserHasFligh
     }
 
     @Override
+    public UserHasFlight findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
+    @Override
     public void update(String name, UserHasFlight entity) throws SQLException {
         service.update(name, entity);
     }

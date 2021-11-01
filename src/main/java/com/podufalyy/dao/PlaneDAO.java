@@ -1,40 +1,31 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.DBConnection;
-import com.podufalyy.entities.Plane;
-import com.podufalyy.enums.PlaneType;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import com.podufalyy.db.HibernateManager;
+
+import com.podufalyy.entities.Plane;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@SuppressWarnings({"unchecked"})
 public class PlaneDAO implements DAOInterface<Plane> {
-    private static final String GET_ALL = "SELECT * FROM podufalyy.plane";
-    private static final String GET_BY_NAME = "SELECT * FROM podufalyy.plane WHERE name=?";
-    private static final String CREATE = "INSERT podufalyy.plane "
-            + "(`name`, `country_id`) VALUES (?, ?)";
-    private static final String UPDATE = "UPDATE podufalyy.plane"
-            + " SET country_id=? WHERE name=?";
-    private static final String DELETE = "DELETE FROM podufalyy.plane WHERE name=?";
+    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
 
 
     @Override
     public List<Plane> findAll() throws SQLException {
         List<Plane> planes = new ArrayList<>();
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_ALL)) {
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Plane plane = new Plane(
-                        resultSet.getString("name"),
-                        resultSet.getInt("seats"),
-                        PlaneType.valueOf(resultSet.getString("type")),
-                        resultSet.getInt("airline_id")
-                );
-                planes.add(plane);
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            planes = session.createQuery("from Plane ").getResultList();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,34 +33,23 @@ public class PlaneDAO implements DAOInterface<Plane> {
     }
 
     @Override
-    public void create(Plane airline) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(CREATE)) {
-            statement.setString(1, String.valueOf(airline.getName()));
-            statement.setInt(2, airline.getSeats());
-            statement.setString(3, String.valueOf(airline.getType()));
-            statement.setInt(4, airline.getAirlineId());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void create(Plane entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.save(entity);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public Plane findByName(String name) throws SQLException {
+    public Plane findById(Integer id) throws SQLException {
         Plane plane = null;
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_BY_NAME)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                plane = new Plane(
-                        resultSet.getString("name"),
-                        resultSet.getInt("seats"),
-                        PlaneType.valueOf(resultSet.getString("type")),
-                        resultSet.getInt("airline_id")
-                );
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            plane = session.get(Plane.class, id);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,25 +57,25 @@ public class PlaneDAO implements DAOInterface<Plane> {
     }
 
     @Override
-    public void update(String name, Plane plane) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(UPDATE)) {
-            statement.setString(1, plane.getName());
-            statement.setInt(2, plane.getSeats());
-            statement.setString(3,  String.valueOf(plane.getType()));
-            statement.setInt(4, plane.getAirlineId());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void update(Integer name, Plane entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(DELETE)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            statement.executeUpdate();
+    public void delete(Integer id) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            Plane plane = session.get(Plane.class, id);
+            if (plane != null) {
+                session.delete(plane);
+            }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

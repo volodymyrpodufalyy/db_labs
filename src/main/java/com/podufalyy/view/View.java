@@ -109,9 +109,9 @@ public class View {
     }
 
     private void getAirlineByName() throws SQLException {
-        System.out.println("\nEnter ID: ");
-        String id = SCANNER.next();
-        System.out.println(airlineController.findByName(id) + "\n");
+        System.out.println("\nEnter id: ");
+        Integer name = SCANNER.nextInt();
+        System.out.println(airlineController.findById(name) + "\n");
     }
 
     private Airline getAirlineInputs() {
@@ -131,18 +131,18 @@ public class View {
 
     private void updateAirline() throws SQLException {
         System.out.println("\nEnter ID for updating: ");
-        String name = SCANNER.next();
+        Integer name = SCANNER.nextInt();
         Airline airline = getAirlineInputs();
-        airline.setName(name);
-        airlineController.update(airline.getName(), airline);
-        System.out.println("Updated airline with name = " + name + "\n");
+        airline.setId(name);
+        airlineController.update(airline.getId(), airline);
+        System.out.println("Updated airline with id = " + name + "\n");
     }
 
     private void deleteAirline() throws SQLException {
-        System.out.println("\nEnter ID to delete hotel chain: ");
+        System.out.println("\nEnter ID to delete airline: ");
         int id = SCANNER.nextInt();
         airlineController.delete(id);
-        System.out.println("Deleted hotel chain with ID = " + id + "\n");
+        System.out.println("Deleted airline with ID = " + id + "\n");
     }
 
 
@@ -291,9 +291,9 @@ public class View {
     }
 
     private void getAirportByName() throws SQLException {
-        System.out.println("\nEnter ID: ");
-        String id = SCANNER.next();
-        System.out.println(airportController.findByName(id) + "\n");
+        System.out.println("\nEnter id: ");
+        Integer id = SCANNER.nextInt();
+        System.out.println(airportController.findById(id) + "\n");
     }
 
     private Airport getAirportInputs() {
@@ -400,8 +400,8 @@ public class View {
 
     private void getUserById() throws SQLException {
         System.out.println("\nEnter ID: ");
-        Integer id = SCANNER.nextInt();
-        System.out.println(userController.findById(id) + "\n");
+        String id = SCANNER.next();
+        System.out.println(userController.findByName(id) + "\n");
     }
 
     private User getUserInputs() {

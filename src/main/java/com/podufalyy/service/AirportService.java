@@ -22,6 +22,11 @@ public class AirportService implements ServiceInterface<Airport> {
     }
 
     @Override
+    public Airport findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+    @Override
     public void create(Airport entity) throws SQLException {
         dao.create(entity);
     }

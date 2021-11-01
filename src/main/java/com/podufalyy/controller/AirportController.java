@@ -25,6 +25,12 @@ public class AirportController implements ControllerInterface<Airport> {
     }
 
     @Override
+    public Airport findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
+
+    @Override
     public void update(String name, Airport entity) throws SQLException {
         service.update(name, entity);
     }

@@ -25,12 +25,17 @@ public class AirlineController implements ControllerInterface<Airline> {
     }
 
     @Override
-    public void update(String name, Airline entity) throws SQLException {
+    public Airline findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
+    @Override
+    public void update(Integer name, Airline entity) throws SQLException {
         service.update(name, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer name) throws SQLException {
         service.delete(name);
     }
 }

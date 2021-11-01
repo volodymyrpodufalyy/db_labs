@@ -22,6 +22,11 @@ public class PlaneService implements ServiceInterface<Plane> {
     }
 
     @Override
+    public Plane findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+    @Override
     public void create(Plane entity) throws SQLException {
         dao.create(entity);
     }

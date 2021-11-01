@@ -25,6 +25,11 @@ public class FlightClassController implements ControllerInterface<FlightCLass> {
     }
 
     @Override
+    public FlightCLass findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
+    @Override
     public void update(String name, FlightCLass entity) throws SQLException {
         service.update(name, entity);
     }

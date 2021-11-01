@@ -24,6 +24,12 @@ public class FlightController implements ControllerInterface<Flight> {
         return service.findByName(name);
     }
 
+
+    @Override
+    public Flight findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
     @Override
     public void update(String name, Flight entity) throws SQLException {
         service.update(name, entity);

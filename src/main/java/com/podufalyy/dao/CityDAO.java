@@ -1,37 +1,26 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.DBConnection;
-import com.podufalyy.entities.Airline;
+import com.podufalyy.db.HibernateManager;
 import com.podufalyy.entities.City;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"unchecked"})
 public class CityDAO implements DAOInterface<City> {
-    private static final String GET_ALL = "SELECT * FROM podufalyy.city";
-    private static final String GET_BY_NAME = "SELECT * FROM podufalyy.city WHERE name=?";
-    private static final String CREATE = "INSERT podufalyy.city "
-            + "(`name`, `country_id`) VALUES (?, ?)";
-    private static final String UPDATE = "UPDATE podufalyy.city"
-            + " SET language=? WHERE name=? AND region_name=? AND region_country_name=?";
-    private static final String DELETE = "DELETE FROM podufalyy.city WHERE name=?";
+    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+
 
     @Override
     public List<City> findAll() throws SQLException {
         List<City> cities = new ArrayList<>();
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_ALL)) {
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                City city = new City(
-                        resultSet.getString("name"),
-                        resultSet.getInt("country_id")
-                );
-                cities.add(city);
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            cities = session.createQuery("from City ").getResultList();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,12 +28,11 @@ public class CityDAO implements DAOInterface<City> {
     }
 
     @Override
-    public void create(City city) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(CREATE)) {
-            statement.setString(1, String.valueOf(city.getName()));
-            statement.setInt(2, city.getCountryId());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void create(City entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.save(entity.getName(), entity);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,16 +41,10 @@ public class CityDAO implements DAOInterface<City> {
     @Override
     public City findByName(String name) throws SQLException {
         City city = null;
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_BY_NAME)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                city = new City(
-                        resultSet.getString("name"),
-                        resultSet.getInt("country_id")
-                );
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            city = session.get(City.class, name);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,12 +53,11 @@ public class CityDAO implements DAOInterface<City> {
 
 
     @Override
-    public void update(String name, City city) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(UPDATE)) {
-            statement.setString(1, city.getName());
-            statement.setInt(2, city.getCountryId());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void update(String name, City entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,10 +65,13 @@ public class CityDAO implements DAOInterface<City> {
 
     @Override
     public void delete(String name) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(DELETE)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            statement.executeUpdate();
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            City city = session.get(City.class, name);
+            if (city != null) {
+                session.delete(city);
+            }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

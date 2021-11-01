@@ -22,6 +22,11 @@ public class FlightService implements ServiceInterface<Flight> {
     }
 
     @Override
+    public Flight findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+    @Override
     public void create(Flight entity) throws SQLException {
         dao.create(entity);
     }

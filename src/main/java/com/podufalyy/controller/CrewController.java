@@ -25,6 +25,11 @@ public class CrewController implements ControllerInterface<Crew> {
     }
 
     @Override
+    public Crew findById(Integer name) throws SQLException {
+        return service.findById(name);
+    }
+
+    @Override
     public void update(String name, Crew entity) throws SQLException {
         service.update(name, entity);
     }

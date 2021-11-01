@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/podufalyy</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">mysql13247re4lly</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <mapping class="com.podufalyy.entities.Flight"/>
+        <mapping class="com.podufalyy.entities.City"/>
+        <mapping class="com.podufalyy.entities.Country"/>
+        <mapping class="com.podufalyy.entities.FlightCLass"/>
+        <mapping class="com.podufalyy.entities.Plane"/>
+        <mapping class="com.podufalyy.entities.Airport"/>
+        <mapping class="com.podufalyy.entities.Airline"/>
+        <mapping class="com.podufalyy.entities.UserHasFlight"/>
+        <mapping class="com.podufalyy.entities.Crew"/>
+        <mapping class="com.podufalyy.entities.User"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

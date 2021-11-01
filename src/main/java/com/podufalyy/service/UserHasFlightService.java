@@ -22,6 +22,12 @@ public class UserHasFlightService implements ServiceInterface<UserHasFlight> {
     }
 
     @Override
+    public UserHasFlight findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+
+    @Override
     public void create(UserHasFlight entity) throws SQLException {
         dao.create(entity);
     }

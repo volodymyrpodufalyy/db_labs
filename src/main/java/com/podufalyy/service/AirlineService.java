@@ -20,17 +20,22 @@ public class AirlineService implements ServiceInterface<Airline> {
     }
 
     @Override
+    public Airline findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+    @Override
     public void create(Airline entity) throws SQLException {
         dao.create(entity);
     }
 
     @Override
-    public void update(String name, Airline entity) throws SQLException {
+    public void update(Integer name, Airline entity) throws SQLException {
         dao.update(name, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer name) throws SQLException {
         dao.delete(name);
     }
 }

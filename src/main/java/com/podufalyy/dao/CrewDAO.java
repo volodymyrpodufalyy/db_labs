@@ -1,8 +1,12 @@
 package com.podufalyy.dao;
 
 import com.podufalyy.db.DBConnection;
+import com.podufalyy.db.HibernateManager;
+import com.podufalyy.entities.Airport;
 import com.podufalyy.entities.Crew;
 import com.podufalyy.entities.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,66 +14,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"unchecked"})
 public class CrewDAO implements DAOInterface<Crew> {
-    private static final String GET_ALL = "SELECT * FROM podufalyy.crew";
-    private static final String GET_BY_NAME = "SELECT * FROM podufalyy.crew WHERE main_pilot=?";
-    private static final String CREATE = "INSERT podufalyy.crew "
-            + "(`main_pilot`, `stewardess`, `second_pilot`, `plane_id`) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE podufalyy.crew"
-            + " SET stewardess=? WHERE main_pilot=?";
-    private static final String DELETE = "DELETE FROM podufalyy.crew WHERE main_pilot=?";
-
+    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
 
     @Override
     public List<Crew> findAll() throws SQLException {
-        List<Crew> users = new ArrayList<>();
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_ALL)) {
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Crew crew = new Crew(
-                        resultSet.getString("main_pilot"),
-                        resultSet.getString("stewardess"),
-                        resultSet.getString("second_pilot"),
-                        resultSet.getInt("plane_id")
-                );
-                users.add(crew);
-            }
+        List<Crew> crews = new ArrayList<>();
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            crews = session.createQuery("from Crew ").getResultList();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return users;
+        return crews;
     }
 
     @Override
-    public void create(Crew crew) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(CREATE)) {
-            statement.setString(1, crew.getMainPilot());
-            statement.setString(2, crew.getStewardess());
-            statement.setString(3, crew.getSecondPilot());
-            statement.setString(4, crew.getMainPilot());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void create(Crew entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.save(entity.getMainPilot(), entity);
+            session.save(entity.getSecondPilot(), entity);
+            session.save(entity.getStewardess(), entity);;
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public Crew findByName(String name) throws SQLException {
+    public Crew findById(Integer id) throws SQLException {
         Crew crew = null;
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(GET_BY_NAME)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                crew = new Crew(
-                        resultSet.getString("main_pilot"),
-                        resultSet.getString("stewardess"),
-                        resultSet.getString("second_pilot"),
-                        resultSet.getInt("plane_id")
-                );
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            crew = session.get(Crew.class, id);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,25 +58,25 @@ public class CrewDAO implements DAOInterface<Crew> {
     }
 
     @Override
-    public void update(String name, Crew crew) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(UPDATE)) {
-            statement.setString(1, crew.getMainPilot());
-            statement.setString(2, crew.getStewardess());
-            statement.setString(3, crew.getSecondPilot());
-            statement.setString(4, crew.getMainPilot());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void update(String id, Crew entity) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(DELETE)) {
-            statement.setString(1, name);
-            System.out.println(statement);
-            statement.executeUpdate();
+    public void delete(String id) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            Crew crew = session.get(Crew.class, id);
+            if (crew != null) {
+                session.delete(crew);
+            }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

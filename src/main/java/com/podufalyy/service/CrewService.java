@@ -19,6 +19,12 @@ public class CrewService implements ServiceInterface<Crew> {
         return dao.findByName(name);
     }
 
+
+    @Override
+    public Crew findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
     @Override
     public void create(Crew entity) throws SQLException {
         dao.create(entity);
