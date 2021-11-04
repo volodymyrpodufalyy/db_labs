@@ -1,6 +1,6 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.City;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class CityDAO implements DAOInterface<City> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
     @Override
@@ -53,7 +53,7 @@ public class CityDAO implements DAOInterface<City> {
 
 
     @Override
-    public void update(String name, City entity) throws SQLException {
+    public void update(Integer id, City entity) throws SQLException {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             session.update(entity);
@@ -64,7 +64,7 @@ public class CityDAO implements DAOInterface<City> {
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer name) throws SQLException {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             City city = session.get(City.class, name);

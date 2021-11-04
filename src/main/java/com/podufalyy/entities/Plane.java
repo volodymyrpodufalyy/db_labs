@@ -2,10 +2,7 @@ package com.podufalyy.entities;
 import com.podufalyy.enums.PlaneType;
 
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 
@@ -17,11 +14,9 @@ public class Plane {
     private PlaneType type;
     private Integer airlineId;
 
-    public String getName() {
-        return name;
-    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -29,6 +24,10 @@ public class Plane {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -47,6 +46,7 @@ public class Plane {
 
     @Basic
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     public PlaneType getType() {
         return type;
     }

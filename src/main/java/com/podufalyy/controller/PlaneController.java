@@ -30,12 +30,12 @@ public class PlaneController implements ControllerInterface<Plane> {
     }
 
     @Override
-    public void update(String name, Plane entity) throws SQLException {
-        service.update(name, entity);
+    public void update(Integer id, Plane entity) throws SQLException {
+        service.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        service.delete(name);
+    public void delete(Integer id) throws SQLException {
+        service.delete(id);
     }
 }

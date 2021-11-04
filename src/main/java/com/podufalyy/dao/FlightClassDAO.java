@@ -1,6 +1,6 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.FlightCLass;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class FlightClassDAO implements DAOInterface<FlightCLass> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
 

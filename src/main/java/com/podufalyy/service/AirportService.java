@@ -32,12 +32,12 @@ public class AirportService implements ServiceInterface<Airport> {
     }
 
     @Override
-    public void update(String name, Airport entity) throws SQLException {
-        dao.update(name, entity);
+    public void update(Integer id, Airport entity) throws SQLException {
+        dao.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        dao.delete(name);
+    public void delete(Integer id) throws SQLException {
+        dao.delete(id);
     }
 }

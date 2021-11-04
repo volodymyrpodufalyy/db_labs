@@ -32,12 +32,12 @@ public class PlaneService implements ServiceInterface<Plane> {
     }
 
     @Override
-    public void update(String name, Plane entity) throws SQLException {
-        dao.update(name, entity);
+    public void update(Integer id, Plane entity) throws SQLException {
+        dao.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        dao.delete(name);
+    public void delete(Integer id) throws SQLException {
+        dao.delete(id);
     }
 }

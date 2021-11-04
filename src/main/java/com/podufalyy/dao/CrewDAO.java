@@ -1,22 +1,17 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.DBConnection;
-import com.podufalyy.db.HibernateManager;
-import com.podufalyy.entities.Airport;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.Crew;
-import com.podufalyy.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class CrewDAO implements DAOInterface<Crew> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public List<Crew> findAll() throws SQLException {

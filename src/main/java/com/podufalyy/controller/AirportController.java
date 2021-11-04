@@ -31,12 +31,12 @@ public class AirportController implements ControllerInterface<Airport> {
 
 
     @Override
-    public void update(String name, Airport entity) throws SQLException {
-        service.update(name, entity);
+    public void update(Integer id, Airport entity) throws SQLException {
+        service.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        service.delete(name);
+    public void delete(Integer id) throws SQLException {
+        service.delete(id);
     }
 }

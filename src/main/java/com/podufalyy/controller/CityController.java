@@ -25,12 +25,12 @@ public class CityController implements ControllerInterface<City> {
     }
 
     @Override
-    public void update(String name, City entity) throws SQLException {
-        service.update(name, entity);
+    public void update(Integer id, City entity) throws SQLException {
+        service.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer name) throws SQLException {
         service.delete(name);
     }
 }

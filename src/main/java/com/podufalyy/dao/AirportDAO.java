@@ -1,6 +1,6 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.Airport;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class AirportDAO implements DAOInterface<Airport> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public List<Airport> findAll() throws SQLException {

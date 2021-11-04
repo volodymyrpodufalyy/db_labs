@@ -25,12 +25,12 @@ public class CityService implements ServiceInterface<City> {
     }
 
     @Override
-    public void update(String name, City entity) throws SQLException {
-        dao.update(name, entity);
+    public void update(Integer id, City entity) throws SQLException {
+        dao.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer name) throws SQLException {
         dao.delete(name);
     }
 }

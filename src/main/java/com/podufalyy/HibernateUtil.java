@@ -1,10 +1,10 @@
-package com.podufalyy.db;
+package com.podufalyy;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateManager {
+public class HibernateUtil {
     private static final SessionFactory SESSION_FACTORY;
 
     static {

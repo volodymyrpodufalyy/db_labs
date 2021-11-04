@@ -2,10 +2,7 @@ package com.podufalyy.entities;
 
 
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -16,8 +13,8 @@ public class Country {
 
     public Country() {
     }
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -52,7 +49,8 @@ public class Country {
         if (this == o) return true;
         if (!(o instanceof Country)) return false;
         Country country = (Country) o;
-        return getName().equals(country.getName()) && Objects.equals(getCovidRules(), country.getCovidRules());
+        if (!Objects.equals(name, country.name)) return false;
+        return getName().equals(country.getName()) && getCovidRules().equals(country.getCovidRules());
     }
 
     @Override

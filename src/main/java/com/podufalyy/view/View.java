@@ -131,11 +131,11 @@ public class View {
 
     private void updateAirline() throws SQLException {
         System.out.println("\nEnter ID for updating: ");
-        Integer name = SCANNER.nextInt();
+        Integer id = SCANNER.nextInt();
         Airline airline = getAirlineInputs();
-        airline.setId(name);
+        airline.setId(id);
         airlineController.update(airline.getId(), airline);
-        System.out.println("Updated airline with id = " + name + "\n");
+        System.out.println("Updated airline with id = " + id + "\n");
     }
 
     private void deleteAirline() throws SQLException {
@@ -173,19 +173,20 @@ public class View {
     }
 
     private void updateCountry() throws SQLException {
-        System.out.println("\nEnter Name for updating: ");
-        String name = SCANNER.next();
+        System.out.println("\nEnter id for updating: ");
+        Integer id = SCANNER.nextInt();
         Country country = getCountryInputs();
-        country.setName(name);
-        countryController.update(country.getName(), country);
-        System.out.println("Updated country with Name = " + name + "\n");
+        country.setId(id);
+        System.out.println(country.getName());
+        countryController.update(country.getId(), country);
+        System.out.println("Updated country with id = " + id + "\n");
     }
 
     private void deleteCountry() throws SQLException {
-        System.out.println("\nEnter name to delete country: ");
-        String name = SCANNER.next();
-        countryController.delete(name);
-        System.out.println("Deleted country with name = " + name + "\n");
+        System.out.println("\nEnter id to delete country: ");
+        Integer id = SCANNER.nextInt();
+        countryController.delete(id);
+        System.out.println("Deleted country with id = " + id + "\n");
     }
 
 
@@ -195,9 +196,9 @@ public class View {
     }
 
     private void getPlaneByName() throws SQLException {
-        System.out.println("\nEnter Name: ");
-        String name = SCANNER.next();
-        System.out.println(planeController.findByName(name) + "\n");
+        System.out.println("\nEnter id: ");
+        Integer id = SCANNER.nextInt();
+        System.out.println(planeController.findById(id) + "\n");
     }
 
     private Plane getPlaneInputs() {
@@ -220,22 +221,19 @@ public class View {
     }
 
     private void updatePlane() throws SQLException {
-        System.out.println("\nEnter Name for updating: ");
-        String name = SCANNER.next();
-        System.out.println("\nEnter country name for updating: ");
-        Integer seats = SCANNER.nextInt();
+        System.out.println("\nEnter id for updating: ");
+        Integer id = SCANNER.nextInt();
         Plane plane = getPlaneInputs();
-        plane.setName(name);
-        plane.setSeats(seats);
-        planeController.update(plane.getName(), plane);
-        System.out.println("Updated plane with Name = " + name + "\n");
+        plane.setId(id);
+        planeController.update(plane.getId(), plane);
+        System.out.println("Updated plane with id = " + id + "\n");
     }
 
     private void deletePlane() throws SQLException {
-        System.out.println("\nEnter name to delete plane: ");
-        String name = SCANNER.next();
-        planeController.delete(name);
-        System.out.println("Deleted plane with name = " + name + "\n");
+        System.out.println("\nEnter id to delete plane: ");
+        Integer id = SCANNER.nextInt();
+        planeController.delete(id);
+        System.out.println("Deleted plane with id = " + id + "\n");
     }
 
 
@@ -253,7 +251,7 @@ public class View {
     private City getCityInputs() {
         System.out.println("\nEnter name: ");
         String name = SCANNER.next();
-        System.out.println("Enter region name: ");
+        System.out.println("Enter country id: ");
         Integer countryId = SCANNER.nextInt();
         return new City(name, countryId);
     }
@@ -266,22 +264,19 @@ public class View {
     }
 
     private void updateCity() throws SQLException {
-        System.out.println("\nEnter Name for updating: ");
-        String name = SCANNER.next();
-        System.out.println("\nEnter country id for updating: ");
-        Integer countryId = SCANNER.nextInt();
+        System.out.println("\nEnter id for updating: ");
+        Integer id = SCANNER.nextInt();
         City city = getCityInputs();
-        city.setName(name);
-        city.setCountryId(countryId);
-        cityController.update(city.getName(), city);
-        System.out.println("Updated city with Name = " + name + "\n");
+        city.setId(id);
+        cityController.update(city.getId(), city);
+        System.out.println("Updated city with id = " + id + "\n");
     }
 
     private void deleteCity() throws SQLException {
-        System.out.println("\nEnter name to delete city: ");
-        String name = SCANNER.next();
-        countryController.delete(name);
-        System.out.println("Deleted city with name = " + name + "\n");
+        System.out.println("\nEnter id to delete city: ");
+        Integer id = SCANNER.nextInt();
+        cityController.delete(id);
+        System.out.println("Deleted city with id = " + id + "\n");
     }
 
 
@@ -315,18 +310,18 @@ public class View {
 
     private void updateAirport() throws SQLException {
         System.out.println("\nEnter ID for updating: ");
-        String name = SCANNER.next();
+        Integer id = SCANNER.nextInt();
         Airport airport = getAirportInputs();
-        airport.setName(name);
-        airportController.update(airport.getName(), airport);
-        System.out.println("Updated airport with name = " + name + "\n");
+        airport.setId(id);
+        airportController.update(airport.getId(), airport);
+        System.out.println("Updated airport with id = " + id + "\n");
     }
 
     private void deleteAirport() throws SQLException {
-        System.out.println("\nEnter ID to delete hotel: ");
-        String id = SCANNER.next();
+        System.out.println("\nEnter ID to delete airport: ");
+        Integer id = SCANNER.nextInt();
         airportController.delete(id);
-        System.out.println("Deleted airport with name = " + id + "\n");
+        System.out.println("Deleted airport with id = " + id + "\n");
     }
 
 

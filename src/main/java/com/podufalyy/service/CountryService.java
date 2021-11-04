@@ -25,12 +25,12 @@ public class CountryService implements ServiceInterface<Country> {
     }
 
     @Override
-    public void update(String name, Country entity) throws SQLException {
-        dao.update(name, entity);
+    public void update(Integer id, Country entity) throws SQLException {
+        dao.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        dao.delete(name);
+    public void delete(Integer id) throws SQLException {
+        dao.delete(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.Country;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class CountryDAO implements DAOInterface<Country> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
     @Override
@@ -53,7 +53,7 @@ public class CountryDAO implements DAOInterface<Country> {
     }
 
     @Override
-    public void update(String name, Country entity) throws SQLException {
+    public void update(Integer id, Country entity) throws SQLException {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             session.update(entity);
@@ -64,10 +64,10 @@ public class CountryDAO implements DAOInterface<Country> {
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            Country country = session.get(Country.class, name);
+            Country country = session.get(Country.class, id);
             if (country != null) {
                 session.delete(country);
             }

@@ -25,12 +25,12 @@ public class CountryController implements ControllerInterface<Country> {
     }
 
     @Override
-    public void update(String name, Country entity) throws SQLException {
-        service.update(name, entity);
+    public void update(Integer id, Country entity) throws SQLException {
+        service.update(id, entity);
     }
 
     @Override
-    public void delete(String name) throws SQLException {
-        service.delete(name);
+    public void delete(Integer id) throws SQLException {
+        service.delete(id);
     }
 }

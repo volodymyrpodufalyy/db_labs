@@ -1,13 +1,10 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.DBConnection;
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.Airline;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +12,7 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class AirlineDAO implements DAOInterface<Airline> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
     @Override

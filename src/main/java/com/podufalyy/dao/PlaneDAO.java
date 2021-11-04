@@ -1,7 +1,7 @@
 package com.podufalyy.dao;
 
 
-import com.podufalyy.db.HibernateManager;
+import com.podufalyy.HibernateUtil;
 
 import com.podufalyy.entities.Plane;
 
@@ -16,12 +16,12 @@ import java.util.List;
 
 @SuppressWarnings({"unchecked"})
 public class PlaneDAO implements DAOInterface<Plane> {
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
     @Override
     public List<Plane> findAll() throws SQLException {
-        List<Plane> planes = new ArrayList<>();
+        List<Plane> planes = new ArrayList<Plane>();
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             planes = session.createQuery("from Plane ").getResultList();

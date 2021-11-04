@@ -1,21 +1,16 @@
 package com.podufalyy.dao;
 
-import com.podufalyy.db.DBConnection;
-import com.podufalyy.db.HibernateManager;
-import com.podufalyy.entities.Flight;
-import com.podufalyy.entities.User;
+import com.podufalyy.HibernateUtil;
 import com.podufalyy.entities.UserHasFlight;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserHasFlightDAO implements DAOInterface<UserHasFlight>{
-    protected final SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
     @Override

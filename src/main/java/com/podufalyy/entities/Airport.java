@@ -1,10 +1,7 @@
 package com.podufalyy.entities;
 
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +10,8 @@ public class Airport {
     private String name;
     private Integer countryId;
     private Integer cityId;
+
+
 
     public Airport(String name, Integer countryId, Integer cityId) {
         this.name = name;
@@ -27,6 +26,7 @@ public class Airport {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -43,7 +43,7 @@ public class Airport {
     public Airport() {
     }
 
-    @Id
+    @Basic
     @Column(name = "country_id")
     public Integer getCountryId() {
         return countryId;
