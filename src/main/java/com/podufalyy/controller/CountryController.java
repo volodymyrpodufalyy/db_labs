@@ -1,6 +1,6 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.domain.Country;
+import com.podufalyy.entities.Country;
 import com.podufalyy.service.CountryService;
 
 import java.sql.SQLException;

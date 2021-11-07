@@ -1,6 +1,6 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.domain.User;
+import com.podufalyy.entities.User;
 import com.podufalyy.service.UserService;
 
 import java.sql.SQLException;

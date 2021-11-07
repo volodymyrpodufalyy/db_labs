@@ -1,6 +1,6 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.domain.Airline;
+import com.podufalyy.entities.Airline;
 import com.podufalyy.service.AirlineService;
 
 import java.sql.SQLException;

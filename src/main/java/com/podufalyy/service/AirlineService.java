@@ -1,18 +1,41 @@
 package com.podufalyy.service;
 
-import com.podufalyy.domain.Airline;
-import com.podufalyy.repository.AirlineRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
+import com.podufalyy.dao.AirlineDAO;
+import com.podufalyy.entities.Airline;
 
-@AllArgsConstructor
-@Service
-public class AirlineService extends AbstractService<Airline, Integer> {
-    public AirlineRepository airlineRepository;
+import java.sql.SQLException;
+import java.util.List;
+
+public class AirlineService implements ServiceInterface<Airline> {
+    private final AirlineDAO dao = new AirlineDAO();
 
     @Override
-    protected JpaRepository<Airline, Integer> getRepository() {
-        return airlineRepository;
+    public List<Airline> findAll() throws SQLException {
+        return dao.findAll();
+    }
+
+    @Override
+    public Airline findByName(String name) throws SQLException {
+        return dao.findByName(name);
+    }
+
+    @Override
+    public Airline findById(Integer name) throws SQLException {
+        return dao.findById(name);
+    }
+
+    @Override
+    public void create(Airline entity) throws SQLException {
+        dao.create(entity);
+    }
+
+    @Override
+    public void update(Integer name, Airline entity) throws SQLException {
+        dao.update(name, entity);
+    }
+
+    @Override
+    public void delete(Integer name) throws SQLException {
+        dao.delete(name);
     }
 }
