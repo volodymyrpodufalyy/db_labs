@@ -1,6 +1,6 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.City;
+import com.podufalyy.domain.City;
 import com.podufalyy.service.CityService;
 
 import java.sql.SQLException;

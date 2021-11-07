@@ -1,6 +1,6 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.User;
+import com.podufalyy.domain.User;
 import com.podufalyy.service.UserService;
 
 import java.sql.SQLException;
@@ -20,8 +20,8 @@ public class UserController implements ControllerInterface<User> {
     }
 
     @Override
-    public User findByName(String name) throws SQLException {
-        return service.findByName(name);
+    public User findById(Integer id) throws SQLException {
+        return service.findById(id);
     }
 
     @Override
