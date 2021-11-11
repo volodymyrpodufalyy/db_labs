@@ -1,41 +1,30 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.Plane;
+import com.podufalyy.domain.Plane;
+import com.podufalyy.dto.PlaneDto;
+import com.podufalyy.mapper.AbstractMapper;
+import com.podufalyy.mapper.PlaneMapper;
+import com.podufalyy.service.AbstractService;
 import com.podufalyy.service.PlaneService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
-import java.util.List;
+@RequestMapping(value = "/planes")
+@RestController
+@AllArgsConstructor
+public class PlaneController extends AbstractController<Plane, PlaneDto, Integer> {
+    private final PlaneService planeService;
+    private final PlaneMapper planeMapper;
 
-public class PlaneController implements ControllerInterface<Plane> {
-    PlaneService service = new PlaneService();
 
     @Override
-    public List<Plane> findAll() throws SQLException {
-        return service.findAll();
+    protected AbstractService<Plane, Integer> getService() {
+        return planeService;
     }
 
     @Override
-    public void create(Plane entity) throws SQLException {
-        service.create(entity);
-    }
-
-    @Override
-    public Plane findByName(String name) throws SQLException {
-        return service.findByName(name);
-    }
-
-    @Override
-    public Plane findById(Integer name) throws SQLException {
-        return service.findById(name);
-    }
-
-    @Override
-    public void update(Integer id, Plane entity) throws SQLException {
-        service.update(id, entity);
-    }
-
-    @Override
-    public void delete(Integer id) throws SQLException {
-        service.delete(id);
+    protected AbstractMapper<Plane, PlaneDto> getMapper() {
+        return planeMapper;
     }
 }

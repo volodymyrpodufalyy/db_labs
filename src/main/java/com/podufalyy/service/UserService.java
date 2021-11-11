@@ -1,36 +1,19 @@
 package com.podufalyy.service;
 
-import com.podufalyy.dao.UserDAO;
-import com.podufalyy.entities.User;
+import com.podufalyy.domain.User;
+import com.podufalyy.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.List;
 
-public class UserService implements ServiceInterface<User> {
-    private final UserDAO dao = new UserDAO();
-
-    @Override
-    public List<User> findAll() throws SQLException {
-        return dao.findAll();
-    }
+@AllArgsConstructor
+@Service
+public class UserService extends AbstractService<User, Integer> {
+    public UserRepository userRepository;
 
     @Override
-    public User findById(Integer id) throws SQLException {
-        return dao.findById(id);
-    }
-
-    @Override
-    public void create(User entity) throws SQLException {
-        dao.create(entity);
-    }
-
-    @Override
-    public void update(String name, User entity) throws SQLException {
-        dao.update(name, entity);
-    }
-
-    @Override
-    public void delete(String name) throws SQLException {
-        dao.delete(name);
+    protected JpaRepository<User, Integer> getRepository() {
+        return userRepository;
     }
 }

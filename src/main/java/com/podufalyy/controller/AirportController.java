@@ -1,42 +1,46 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.Airport;
+import com.podufalyy.domain.Airline;
+import com.podufalyy.domain.Airport;
+import com.podufalyy.dto.AirportDto;
+import com.podufalyy.mapper.AbstractMapper;
+import com.podufalyy.mapper.AirportMapper;
+import com.podufalyy.service.AbstractService;
 import com.podufalyy.service.AirportService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.util.List;
+@RequestMapping(value = "/airports")
+@RestController
+@AllArgsConstructor
+public class AirportController extends AbstractController<Airport, AirportDto, Integer> {
+    private final AirportService airportService;
+    private final AirportMapper airportMapper;
 
-public class AirportController implements ControllerInterface<Airport> {
-    AirportService service = new AirportService();
 
     @Override
-    public List<Airport> findAll() throws SQLException {
-        return service.findAll();
+    protected AbstractService<Airport, Integer> getService() {
+        return airportService;
     }
 
     @Override
-    public void create(Airport entity) throws SQLException {
-        service.create(entity);
+    protected AbstractMapper<Airport, AirportDto> getMapper() {
+        return airportMapper;
     }
 
-    @Override
-    public Airport findByName(String name) throws SQLException {
-        return service.findByName(name);
-    }
-
-    @Override
-    public Airport findById(Integer name) throws SQLException {
-        return service.findById(name);
-    }
-
-
-    @Override
-    public void update(Integer id, Airport entity) throws SQLException {
-        service.update(id, entity);
-    }
-
-    @Override
-    public void delete(Integer id) throws SQLException {
-        service.delete(id);
+    @RequestMapping(method = RequestMethod.PUT,
+            value = "/{id}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    ResponseEntity<Airport> update(@PathVariable Integer id, @RequestBody Airport object) {
+        if (getService().getById(id) != null) {
+            airportService.updateEntity(id, object);
+            return new ResponseEntity<>(airportService.updateEntity(id, object), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

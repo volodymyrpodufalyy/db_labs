@@ -1,36 +1,30 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.Country;
+import com.podufalyy.domain.Country;
+import com.podufalyy.dto.CountryDto;
+import com.podufalyy.mapper.AbstractMapper;
+import com.podufalyy.mapper.CountryMapper;
+import com.podufalyy.service.AbstractService;
 import com.podufalyy.service.CountryService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
-import java.util.List;
+@RequestMapping(value = "/countries")
+@RestController
+@AllArgsConstructor
+public class CountryController extends AbstractController<Country, CountryDto, Integer> {
+    private final CountryService countryService;
+    private final CountryMapper countryMapper;
 
-public class CountryController implements ControllerInterface<Country> {
-    CountryService service = new CountryService();
 
     @Override
-    public List<Country> findAll() throws SQLException {
-        return service.findAll();
+    protected AbstractService<Country, Integer> getService() {
+        return countryService;
     }
 
     @Override
-    public void create(Country entity) throws SQLException {
-        service.create(entity);
-    }
-
-    @Override
-    public Country findByName(String name) throws SQLException {
-        return service.findByName(name);
-    }
-
-    @Override
-    public void update(Integer id, Country entity) throws SQLException {
-        service.update(id, entity);
-    }
-
-    @Override
-    public void delete(Integer id) throws SQLException {
-        service.delete(id);
+    protected AbstractMapper<Country, CountryDto> getMapper() {
+        return countryMapper;
     }
 }

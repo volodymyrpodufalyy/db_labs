@@ -1,36 +1,30 @@
 package com.podufalyy.controller;
 
-import com.podufalyy.entities.User;
+import com.podufalyy.domain.User;
+import com.podufalyy.dto.UserDto;
+import com.podufalyy.mapper.AbstractMapper;
+import com.podufalyy.mapper.UserMapper;
+import com.podufalyy.service.AbstractService;
 import com.podufalyy.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
-import java.util.List;
+@RequestMapping(value = "/users")
+@RestController
+@AllArgsConstructor
+public class UserController extends AbstractController<User, UserDto, Integer> {
+    private final UserService userService;
+    private final UserMapper userMapper;
 
-public class UserController implements ControllerInterface<User> {
-    UserService service = new UserService();
 
     @Override
-    public List<User> findAll() throws SQLException {
-        return service.findAll();
+    protected AbstractService<User, Integer> getService() {
+        return userService;
     }
 
     @Override
-    public void create(User entity) throws SQLException {
-        service.create(entity);
-    }
-
-    @Override
-    public User findById(Integer id) throws SQLException {
-        return service.findById(id);
-    }
-
-    @Override
-    public void update(String name, User entity) throws SQLException {
-        service.update(name, entity);
-    }
-
-    @Override
-    public void delete(String name) throws SQLException {
-        service.delete(name);
+    protected AbstractMapper<User, UserDto> getMapper() {
+        return userMapper;
     }
 }
