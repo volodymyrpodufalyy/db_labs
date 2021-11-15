@@ -7,7 +7,7 @@ INSERT INTO street (name) VALUES ('Kobilnyka'),
 
 INSERT INTO position ( name) VALUES ( 'accountant'),
 ('loader'),('assistant'),('technician'),('pharmacist'),
-('consultant'),('manager'),('pharmacologist');
+('consultant'),('manager'),('pharmacologist'), ('ophthalmologist'), ('doctor');
 
 INSERT INTO pharmacy (id, name,street_id, building_number, web_adress, time_opens, 
 time_closes, is_open_saturday, is_open_sunday)
@@ -37,8 +37,8 @@ INSERT INTO employee (name, surname, middle_name, identity_number, passport_data
 ('Hugh', 'Akston', 'Elliot', '5dddg3236', '028378270', '6', '1920-02-06', '6', '6'),
 ('John', 'Oleynik', 'Jeffrey', '75dsss323', '0902648270', '7', '1920-12-12', '7', '7'),
 ('Floyd', 'Ferris', 'Ferguson', '875dsss323', '0432648270', '8', '1920-12-12', '8', '8'),
-('Richard', 'Halley', 'Charley', '75dxxpo3239', '0562648290', '1', '1922-01-01', '9', '9'),
-('Philip', 'Rearden', 'Artur', '234870923', '0452648270', '2', '1920-10-10', '10', '10');
+('Richard', 'Halley', 'Charley', '75dxxpo3239', '0562648290', '9', '1922-01-01', '9', '9'),
+('Philip', 'Rearden', 'Artur', '234870923', '0452648270', '10', '1920-10-10', '10', '10');
 
 
 INSERT INTO medicine (name, ministry_code, require_recipe, is_narcotic, is_psychtropic) VALUES 
